@@ -1,0 +1,92 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+h1 {
+    color: blue;
+    font-size: 40px;
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 1000px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+.cover{
+    width: 100px;
+    height: 100px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+input.album{
+    border-radius: 5px;
+    padding: 3px;
+    border: black solid 1px;
+    width: 75%;
+}
+.album_name{
+    font-size: 20px;
+}
+.image{
+    display: flex;
+    font-size: 10px;
+}
+img{
+    width: 100px;
+    height: 100px;
+}
+textarea{
+    height: 140px;
+    width: 100%;
+    resize: none;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+button{
+    background-color: green;
+    color: white;
+    height: 150px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    border: 2px solid black;
+    transition: all 0.15s;
+}
+#delete{
+    background-color: rgb(128, 0, 0);
+    color: white;
+    height: 150px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+button:hover{
+    background-color: rgb(2, 69, 2);
+}
+#delete:hover{
+    background-color: rgb(93, 1, 1);
+}
+
+button:active{
+    box-shadow: 0 0 5px black;
+    scale: 0.95;
+}
