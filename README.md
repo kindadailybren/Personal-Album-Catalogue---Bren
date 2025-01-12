@@ -1,2 +1,3 @@
-Personal Album Catalogue Website
-Technicals - PHP, MySQL
+Current Project: Album Catalogue/Tracking Webpage (WIP)🎵
+
+Technicals: PHP 🐘, Apache 🌐, MySQL 🗃️ , XAMPP 🛠️
