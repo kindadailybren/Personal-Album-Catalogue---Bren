@@ -1,110 +1,63 @@
+<?php
+// Start the session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" type="image/x-icon" href="media/vinyl.png">
+  <title>Album Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
-  <h1>BREN'S ALBUM CATALOGUE</h1>
-    <form action="index.php" method="post" enctype="multipart/form-data"> <!-- Set Table as a Form with method POST-->
-    <table>
-      <tr>
-        <th>Album Cover</th>
-        <th>Album</th>
-        <th>Artist</th>
-        <th>Review/Remarks</th>
-        <th>Submit</th>
-      </tr>
-        <tr><!--All Components import from external file using the include php syntax-->
-        <td class="cover"><?php include("./components/album_image.php") ?></td>
-        <td><?php include("./components/album_name.php") ?></td>
-        <td><?php include("./components/artist_name.php") ?></td>
-        <td><?php include("./components/remarks.php") ?></td>
-        <td><button type="submit" name="add">SUBMIT</button></td>
-      </tr>
-      <?php
-      include("database.php"); //This is to initialize and connect the database to the project
-
-      $sql_query = "SELECT * FROM album_records";    // Query all the data with * from the album_records table
-      $result = mysqli_query($conn, $sql_query);     // mysqli_query needs two arguments, the connection and the query
-
-      if (mysqli_num_rows($result) > 0) {            // This checks if the number of rows on the database is not empty
-        while ($row = mysqli_fetch_assoc($result)) { // While the mysqli_fetch_assoc does not return an empty data
-          echo "<tr>";
-          echo "<td><img style=\"width:190px; height:190px\" src=\"media/{$row['album_image']}\"</td>";
-          echo "<td style=\"font-weight:bold;\">{$row['album']}</td>";
-          echo "<td style=\"font-weight:bold;\">{$row['artist']}</td>";
-          echo "<td style=\"font-weight:bold;width:190px;\">{$row['review']}</td>";
-          echo "<td colspan=\"2\"><button id=\"delete\" type=\"submit\" name=\"delete\" value=\"{$row['id']}\">DELETE</button></td>";
-          echo "</tr>";
-        } //Do all of this
-      }
-
-      mysqli_close($conn); //After fetching the data and rendering it on the table, close the sql.
-      ?>
-    </table>
-  </form>
+    <div class="login-container">
+    <h1 class="title">Personal Album Catalogue</h1>
+    <div class="logins">
+        <div class="login-side">
+            <p>Login</p>
+            <form action="index.php" method="post" class="formz">
+                <div class="each">
+                    <label for="username-login">Username:</label><br>
+                    <input type="text" id="username-login" name="username">
+                </div>
+                <div class="each">
+                    <label for="password-login">Password:</label><br>
+                    <input type="password" id="password-login" name="password">
+                </div>
+                <button type="submit" id="login" name="login">LOGIN</button>
+            </form>
+        </div>
+        <div class="register-side">
+            <p>Register</p>
+            <form action="index.php" method="post" class="formz">
+                <div class="each">
+                    <label name="username">Username:<br>
+                    <input type="text" id="username-register" name="username">
+                </div>
+                <div class="each">
+                    <label name="username">Password:<br>
+                    <input type="password" id="password-register" name="password">
+                </div>
+                <button type="submit" id="register" name="register">REGISTER</button>
+            </form>
+        </div>
+    </div>
+        <p class="acknowledge">Made By: <i class="fa-brands fa-github"></i> <a href="https://github.com/kindadailybren"> kindadailybren</a> </p>
+    </div>
 </body>
-
 </html>
 
-<?php               //This php section is for fetching the input data from the user using the POST table method
-include("database.php"); // This is for starting the database
-
-if (isset($_POST["add"])) {               //isset is for checking if the button "add" was clicked
-  $album_image = $_FILES['image']['name'];  //This is for adding the image name to the media folder
-  $tempname = $_FILES['image']['tmp_name']; //This is for adding the image name to the media folder
-  $folder = 'media/' . $album_image;        //This is for adding the image name to the media folder
-
-  move_uploaded_file($tempname, $folder); //move_uploaded_file needs two arguments, the file name, and the folder name using
-                                          //the syntax from above
-
-  $album_name = trim($_POST["album"] ?? '');   //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
-  $artist_name = trim($_POST["artist"] ?? ''); //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
-  $remarks = trim($_POST["review"] ?? '');     //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
-
-  if (!empty($album_image) && !empty($album_name) && !empty($artist_name) && !empty($remarks)) { // This checks if all the input areas are filled with data
-    $album_image = mysqli_real_escape_string($conn, $album_image);           //mysqli_real_escape_string is for escaping "|" special characters for safety
-    $album_name = mysqli_real_escape_string($conn, $_POST["album"] ?? '');   //mysqli_real_escape_string is for escaping "|" special characters for safety
-    $artist_name = mysqli_real_escape_string($conn, $_POST["artist"] ?? ''); //mysqli_real_escape_string is for escaping "|" special characters for safety
-    $remarks = mysqli_real_escape_string($conn, $_POST["review"] ?? '');     //mysqli_real_escape_string is for escaping "|" special characters for safety
-
-    $sql_query = " 
-      INSERT INTO album_records (album_image, album, artist, review)
-      VALUES ('$album_image', '$album_name', '$artist_name', '$remarks')
-      ";//This is the query to insert the fetched data on to the data set which the HTML will render later
-
-    if (mysqli_query($conn, $sql_query)) { // The mysqli_query function needs two arguments, the conn from the database and the query which is above
-      header("Location: index.php");       // This kinds of refreshes the website by sending it back to index.php to refresh everything
-      exit();
-    } else {
-      echo "Error: " . mysqli_error($conn);// Error catching
+<?php
+    if(isset($_POST["login"])){
+        $_SESSION["username-store"] = strtoupper($_POST["username"]);
+        header("Location: albums.php");
+        exit();
     }
-  } else { // If at least one is not filled with input on the table
-    echo "<p style='color:red;'>All fields are required!</p>";
-  }
-};
-
-if (isset($_POST["delete"])) {                                      // For the delete functionability
-  $album_id = $_POST["delete"];                                     // Get the album id to delete
-  $sql_delete = "DELETE FROM album_records WHERE id = '$album_id'"; //This is the query to delete based on the id
-
-  if (mysqli_query($conn, $sql_delete)) { // The mysqli_query function needs two arguments, the conn from the database and the query which is above
-    header("Location: index.php"); // Redirect after deleting
-    exit();
-  } else {
-    echo "Error deleting record: " . mysqli_error($conn);
-  }
-}
-
-$album_image = null;
-$album_name = '';
-$artist_name = '';
-$remarks = '';
-
-mysqli_close($conn);
 ?>

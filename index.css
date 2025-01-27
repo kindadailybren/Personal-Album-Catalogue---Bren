@@ -1,92 +1,132 @@
 body {
-    font-family: 'Roboto', sans-serif;
     display: flex;
-    align-content: center;
     justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 100vh; 
+    margin: 0;
+    background-image: url("media/pyt3d7vxk1aa1.png");
+}
+.login-container{
+    width: 800px;
+    height: 500px;
+    align-self: center;
+    display: flex;
     flex-direction: column;
-
+    align-items: center;
+    background-color: rgb(65, 65, 126);
+    border: 3px solid rgb(31, 31, 68);
+    border-radius: 20px;
+    box-shadow: 0px 0px  20px black;
 }
-
-h1 {
-    color: blue;
-    font-size: 40px;
-    text-align: center;
-}
-
-table {
-    margin: 0 auto;
-    border-collapse: collapse;
+.formz{
     display: flex;
-    align-content: center;
-    justify-content: center;
-    width: 1000px;
+    flex-direction: column;
 }
-
-th, td {
-    border: 1px solid black;
-    padding: 8px;
+.title{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 50px;
     text-align: center;
 }
-.cover{
-    width: 100px;
-    height: 100px;
+label{
+    font-size: 19px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
 }
-
-th {
-    background-color: #f2f2f2;
+#login, #register{
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    width: 80px;
+    height: 35px;
+    color: white;
+    background-color: rgb(66, 66, 124);
+    border: 2px solid rgb(31, 31, 68);
+    border-radius: 5px;
+    margin: 6px;
 }
-
-input.album{
+input{
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    align-self: flex-end;
+    height: 17px;
     border-radius: 5px;
     padding: 3px;
-    border: black solid 1px;
-    width: 75%;
 }
-.album_name{
-    font-size: 20px;
+p{
+    text-align: center;
+    font-size: 23px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    color: whitesmoke;
+    font-family: 'Rubik Mono One', sans-serif;
+    margin-top: -15px;
 }
-.image{
-    display: flex;
-    font-size: 10px;
-}
-img{
-    width: 100px;
-    height: 100px;
-}
-textarea{
-    height: 140px;
+.logins{
     width: 100%;
-    resize: none;
-    border-radius: 10px;
-    border: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
 }
-
-button{
-    background-color: green;
+.login-side, .register-side{
+    box-shadow: 0px 0px  10px black;
+    border-radius: 10px;    
+    border: 2px solid rgb(50, 50, 119);
+    padding: 50px;
+    background-color: rgb(49, 49, 101);
+}
+.acknowledge{
+    font-family: 'Poppins', sans-serif;
+    -webkit-text-stroke-width: 0px;
+    -webkit-text-stroke-color: black;
     color: white;
-    height: 150px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-family: 'Roboto', sans-serif;
-    border: 2px solid black;
-    transition: all 0.15s;
+    margin-top: 8px;
 }
-#delete{
-    background-color: rgb(128, 0, 0);
+a{
+    text-decoration: none;
     color: white;
-    height: 150px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-family: 'Roboto', sans-serif;
 }
-button:hover{
-    background-color: rgb(2, 69, 2);
-}
-#delete:hover{
-    background-color: rgb(93, 1, 1);
-}
+@media (max-width: 480px) {
+    .login-container {
+        width: 80%;
+        padding: 10px;
+        height: max-content;
+    }
+    .login-side, .register-side{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 250px;
+        align-self: center;
+        margin-top: 7px;
+        box-shadow: 0px 0px  10px black;
+        border-radius: 10px;    
+        border: 2px solid rgb(50, 50, 119);
+        padding: 20px;
+        background-color: rgb(49, 49, 101);
+    }
+    .logins{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
 
-button:active{
-    box-shadow: 0 0 5px black;
-    scale: 0.95;
+    .title {
+        font-size: 30px;
+    }
+
+    label {
+        font-size: 15px;
+    }
+
+    input {
+        max-width: 100%;
+    }
+
+    #login, #register {
+        width: 100%;
+        max-width: 150px;
+    }
 }

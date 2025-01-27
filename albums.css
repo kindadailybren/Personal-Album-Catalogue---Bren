@@ -1,0 +1,238 @@
+body {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: column;
+    background-image: url("media/pyt3d7vxk1aa1.png");
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    text-align: center;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(17, 17, 59);
+}
+
+td:nth-child(1) {
+    width: 5%; /* Smaller width for the first column */
+}
+
+td:nth-child(2),
+td:nth-child(3),
+td:nth-child(4) {
+    width: 30%; /* Bigger width for the second and third columns */
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 1000px;
+    border-radius: 10px;
+}
+
+th, td {
+    border: 2.5px solid rgb(17, 17, 59);
+    font-family: 'Poppins', sans-serif;
+    padding: 8px;
+    text-align: center;
+    background-color: #b9b0b0;
+}
+.cover{
+    width: 50px;
+    height: 100px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+input.album{
+    border-radius: 5px;
+    padding: 3px;
+    border: black solid 1px;
+    width: 75%;
+}
+.album_name{
+    font-size: 20px;
+}
+.image{
+    display: flex;
+    font-size: 10px;
+}
+img{
+    width: 200px;
+    height: 200px;
+}
+textarea{
+    height: 140px;
+    width: 95%;
+    resize: none;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+button{
+    background-color: green;
+    color: white;
+    height: 150px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.15s;
+}
+#delete{
+    background-color: rgb(128, 0, 0);
+    color: white;
+    height: 150px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+button:hover{
+    background-color: rgb(2, 69, 2);
+}
+#delete:hover{
+    background-color: rgb(93, 1, 1);
+}
+
+button:active{
+    box-shadow: 0 0 5px black;
+    scale: 0.95;
+}
+
+
+
+/* ALBUM SHITZ */
+.album-containerz{
+    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    min-height: 100px;
+    height: auto;
+    max-height: max-content;
+    max-width: 600px;
+    border: 2px solid rgb(50, 50, 119);
+    background-color: rgb(83, 83, 160);
+    display: flex;
+    transition: 0.55s scale;
+}
+.album-containerz:hover{
+    scale: 1.01;
+}
+.album-info{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 100%;
+}
+.albumImage{
+    align-self: center;
+    border-radius: 7px;
+    box-shadow: 0px 0px 10px;
+}
+.album-name{
+    margin-left: 10px;
+    font-size: 2em;
+    font-family: 'Rubik Mono One', sans-serif;
+    color: white;
+}
+.artist-name{
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-top: -40px;
+    margin-left: 13px;
+    font-size: 1em;
+    font-family: 'Rubik Mono One', sans-serif;
+    color: rgb(176, 174, 174);
+}
+.infos-artist{
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    height: max-content;
+}
+.review-user{
+    margin-top: -12px;
+    color: white;
+    margin-left: 10px;
+    height: max-content;
+    font-family: 'Poppins', sans-serif;
+}
+#delete-in-container{
+    background-color: rgb(204, 84, 84);
+    color: white;
+    height: 30px;
+    width: max-content;
+    margin-inline: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.15s;
+}
+.delButton{
+    align-self: flex-end;
+}
+.all-albums{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    img{
+        width: 200px;
+        height: 200px;
+    }
+    .album-containerz{
+        width: 93%;
+        height: max-content;
+    }
+    h1 {
+        font-size: 30px;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    th, td {
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    #cover {
+        font-size: 10px;
+    }
+
+    input.album {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    img{
+        width: 100px;
+        height: 100px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+
+    th, td {
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    .cover {
+        width: 60px;
+        height: 60px;
+    }
+}
