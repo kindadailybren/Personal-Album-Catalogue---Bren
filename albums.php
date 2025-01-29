@@ -17,8 +17,8 @@ session_start();
 </head>
 
 <body>
-  <h1><?php echo $_SESSION["username-store"]?>'S ALBUM CATALOGUE</h1>
-  <form action="index.php" method="post" enctype="multipart/form-data"> <!-- Set Table as a Form with method POST-->
+  <h1><?php echo $_SESSION["username-store"] ?>'S ALBUM CATALOGUE</h1>
+  <form action="albums.php" method="post" enctype="multipart/form-data"> <!-- Set Table as a Form with method POST-->
     <table class="table-bordered">
       <tr>
         <th>Album Cover</th>
@@ -38,16 +38,16 @@ session_start();
   </form>
   <h1>ALL ALBUMS</h1>
   <div class="all-albums">
-      <?php
-      include("database.php"); //This is to initialize and connect the database to the project
+    <?php
+    include("database.php"); //This is to initialize and connect the database to the project
 
-      $sql_query = "SELECT * FROM album_records";    // Query all the data with * from the album_records table
-      $result = mysqli_query($conn, $sql_query);     // mysqli_query needs two arguments, the connection and the query
+    $sql_query = "SELECT * FROM album_records";    // Query all the data with * from the album_records table
+    $result = mysqli_query($conn, $sql_query);     // mysqli_query needs two arguments, the connection and the query
 
-      if (mysqli_num_rows($result) > 0) {            // This checks if the number of rows on the database is not empty
-        echo "<form action=\"index.php\" method=\"post\">";
-        while ($row = mysqli_fetch_assoc($result)) { // While the mysqli_fetch_assoc does not return an empty data
-          /*
+    if (mysqli_num_rows($result) > 0) {            // This checks if the number of rows on the database is not empty
+      echo "<form action=\"albums.php\" method=\"post\">";
+      while ($row = mysqli_fetch_assoc($result)) { // While the mysqli_fetch_assoc does not return an empty data
+        /*
           echo "<tr>";
           echo "<td><img style=\"width:190px; height:190px\" src=\"media/{$row['album_image']}\"</td>";
           echo "<td style=\"font-weight:bold;\">{$row['album']}</td>";
@@ -56,30 +56,30 @@ session_start();
           echo "<td colspan=\"2\"><button id=\"delete\" type=\"submit\" name=\"delete\" value=\"{$row['id']}\">DELETE</button></td>";
           echo "</tr>";
           */
-          if($row['username'] == $_SESSION['username-store']){
-            echo "<div class=\"album-containerz\">";
-            echo   "<img src=\"media/{$row['album_image']}\" class=\"albumImage\">";
-            echo     "<div class=\"album-info\">";
-            echo       "<div class=\"infos-artist\">";
-            echo         "<p class=\"album-name\">{$row['album']}</p>";
-            echo         "<p class=\"artist-name\">{$row['artist']}</p>";
-            echo      " </div>";
-            echo     "<div>";
-            echo       "<p class=\"review-user\">{$row['review']}</p>";
-            echo     "</div>";
-            echo       "<form action=\"index.php\" method=\"post\" class=\"delButton\">";
-            echo         "<input type=\"hidden\" name=\"delete-in-container\" value=\"{$row['id']}\">";
-            echo         "<button id=\"delete-in-container\" class=\"delButton\" type=\"submit\">DELETE</button>";
-            echo       "</form>";
-            echo    "</div>";
-            echo "</div>";
-          }
-        } //Do all of this
-        echo "</form>";
-      }
+        if ($row['username'] == $_SESSION['username-store']) {
+          echo "<div class=\"album-containerz\">";
+          echo   "<img src=\"media/{$row['album_image']}\" class=\"albumImage\">";
+          echo     "<div class=\"album-info\">";
+          echo       "<div class=\"infos-artist\">";
+          echo         "<p class=\"album-name\">{$row['album']}</p>";
+          echo         "<p class=\"artist-name\">{$row['artist']}</p>";
+          echo      " </div>";
+          echo     "<div>";
+          echo       "<p class=\"review-user\">{$row['review']}</p>";
+          echo     "</div>";
+          echo       "<form action=\"albums.php\" method=\"post\" class=\"delButton\">";
+          echo         "<input type=\"hidden\" name=\"delete-in-container\" value=\"{$row['id']}\">";
+          echo         "<button id=\"delete-in-container\" class=\"delButton\" type=\"submit\">DELETE</button>";
+          echo       "</form>";
+          echo    "</div>";
+          echo "</div>";
+        }
+      } //Do all of this
+      echo "</form>";
+    }
 
-      mysqli_close($conn); //After fetching the data and rendering it on the table, close the sql.
-      ?>
+    mysqli_close($conn); //After fetching the data and rendering it on the table, close the sql.
+    ?>
     </form>
   </div>
 </body>
@@ -98,15 +98,15 @@ if (isset($_POST["add"])) {               //isset is for checking if the button 
   move_uploaded_file($tempname, $folder); //move_uploaded_file needs two arguments, the file name, and the folder name using
   //the syntax from above
 
-  $album_name = trim($_POST["album"] ?? '');   //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
-  $artist_name = trim($_POST["artist"] ?? ''); //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
-  $remarks = trim($_POST["review"] ?? '');     //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
+  $album_name = trim(filter_input(INPUT_POST, "album", FILTER_SANITIZE_SPECIAL_CHARS) ?? '');   //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
+  $artist_name = trim(filter_input(INPUT_POST, "artist", FILTER_SANITIZE_SPECIAL_CHARS) ?? ''); //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
+  $remarks = trim(filter_input(INPUT_POST, "review", FILTER_SANITIZE_SPECIAL_CHARS) ?? '');     //This will get the input from the POST with the "album" id and trim it, but returns an empty string if nothing inside
 
   if (!empty($album_image) && !empty($album_name) && !empty($artist_name) && !empty($remarks)) { // This checks if all the input areas are filled with data
     $album_image = mysqli_real_escape_string($conn, $album_image);           //mysqli_real_escape_string is for escaping "|" special characters for safety
-    $album_name = mysqli_real_escape_string($conn, $_POST["album"] ?? '');   //mysqli_real_escape_string is for escaping "|" special characters for safety
-    $artist_name = mysqli_real_escape_string($conn, $_POST["artist"] ?? ''); //mysqli_real_escape_string is for escaping "|" special characters for safety
-    $remarks = mysqli_real_escape_string($conn, $_POST["review"] ?? '');     //mysqli_real_escape_string is for escaping "|" special characters for safety
+    $album_name = mysqli_real_escape_string($conn, $album_name ?? '');   //mysqli_real_escape_string is for escaping "|" special characters for safety
+    $artist_name = mysqli_real_escape_string($conn, $artist_name ?? ''); //mysqli_real_escape_string is for escaping "|" special characters for safety
+    $remarks = mysqli_real_escape_string($conn, $remarks ?? '');     //mysqli_real_escape_string is for escaping "|" special characters for safety
 
     $sql_query = " 
       INSERT INTO album_records (album_image, album, artist, review, username)
@@ -129,7 +129,7 @@ if (isset($_POST["delete-in-container"])) {                                     
   $sql_delete = "DELETE FROM album_records WHERE id = '$album_id'"; //This is the query to delete based on the id
 
   if (mysqli_query($conn, $sql_delete)) { // The mysqli_query function needs two arguments, the conn from the database and the query which is above
-    header("Location: index.php"); // Redirect after deleting
+    header("Location: albums.php"); // Redirect after deleting
     exit();
   } else {
     echo "Error deleting record: " . mysqli_error($conn);
