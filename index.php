@@ -33,6 +33,35 @@ session_start();
                         <label for="password-login">Password:</label><br>
                         <input type="password" id="password-login" name="password">
                     </div>
+                    <p id="login_dis"><?php
+                                        if (isset($_POST["login"])) {
+                                            include("database.php"); // This is for starting the database
+
+                                            $_SESSION["username-store"] = strtoupper(filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS));
+                                            $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+
+                                            $username = $_SESSION["username-store"];
+                                            $sql_query = "SELECT username_info, password_info FROM user_info WHERE username_info = '$username'";
+
+                                            $result = mysqli_query($conn, $sql_query);
+                                            if ($result && mysqli_num_rows($result) > 0) {
+                                                $row = mysqli_fetch_assoc($result);
+
+                                                if (password_verify($password, $row["password_info"])) {
+                                                    echo "Login successful!";
+                                                    header("Location: albums.php"); // Redirect after registration
+                                                    exit();
+                                                } else {
+                                                    echo "Login Credentials Wrong";
+                                                }
+                                            } else {
+                                                echo "User not found!";
+                                            }
+
+
+                                            mysqli_close($conn);
+                                        }
+                                        ?></p>
                     <button type="submit" id="login" name="login">LOGIN</button>
                 </form>
             </div>
@@ -47,6 +76,35 @@ session_start();
                         <label name="username">Password:<br>
                             <input type="password" id="password-register" name="password">
                     </div>
+                    <p id="register_dis">
+                        <?php
+                        if (isset($_POST["register"])) {
+                            include("database.php"); // This is for starting the database
+
+                            $_SESSION["username-store"] = strtoupper(filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS));
+                            $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+
+                            $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
+
+                            // SQL query
+                            $sql_query = "INSERT INTO user_info (username_info, password_info) VALUES (?, ?)";
+
+                            // Use prepared statements to prevent SQL injection
+                            $stmt = mysqli_prepare($conn, $sql_query);
+                            mysqli_stmt_bind_param($stmt, "ss", $_SESSION["username-store"], $hashed_pass);
+
+                            if (mysqli_stmt_execute($stmt)) {
+                                echo "Registration successful!";
+                                header("Location: albums.php"); // Redirect after registration
+                                exit();
+                            } else {
+                                echo "Register Failed, Try Again";
+                            }
+
+                            mysqli_close($conn);
+                        }
+                        ?>
+                    </p>
                     <button type="submit" id="register" name="register">REGISTER</button>
                 </form>
             </div>
@@ -56,59 +114,3 @@ session_start();
 </body>
 
 </html>
-
-<?php
-if (isset($_POST["login"])) {
-    include("database.php"); // This is for starting the database
-
-    $_SESSION["username-store"] = strtoupper(filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS));
-    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $username = $_SESSION["username-store"];
-    $sql_query = "SELECT username_info, password_info FROM user_info WHERE username_info = '$username'";
-
-    $result = mysqli_query($conn, $sql_query);
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-
-        if (password_verify($password, $row["password_info"])) {
-            echo "Login successful!";
-            header("Location: albums.php"); // Redirect after registration
-            exit();
-        } else {
-            echo "Login Credentials Wrong, Try Again.";
-        }
-    } else {
-        echo "User not found!";
-    }
-
-
-    mysqli_close($conn);
-}
-
-if (isset($_POST["register"])) {
-    include("database.php"); // This is for starting the database
-
-    $_SESSION["username-store"] = strtoupper(filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS));
-    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
-
-    // SQL query
-    $sql_query = "INSERT INTO user_info (username_info, password_info) VALUES (?, ?)";
-
-    // Use prepared statements to prevent SQL injection
-    $stmt = mysqli_prepare($conn, $sql_query);
-    mysqli_stmt_bind_param($stmt, "ss", $_SESSION["username-store"], $hashed_pass);
-
-    if (mysqli_stmt_execute($stmt)) {
-        echo "Registration successful!";
-        header("Location: albums.php"); // Redirect after registration
-        exit();
-    } else {
-        echo "Error: " . mysqli_error($conn);
-    }
-
-    mysqli_close($conn);
-}
-?>

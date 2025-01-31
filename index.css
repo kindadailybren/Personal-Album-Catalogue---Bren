@@ -9,7 +9,7 @@ body {
 }
 .login-container{
     width: 800px;
-    height: 500px;
+    height: 510px;
     align-self: center;
     display: flex;
     flex-direction: column;
@@ -63,6 +63,16 @@ p{
     color: whitesmoke;
     font-family: 'Rubik Mono One', sans-serif;
     margin-top: -15px;
+}
+#register_dis, #login_dis{
+    text-align: left;
+    margin-top: 0px;
+    font-size: 15px;
+    -webkit-text-stroke-width: 0px;
+    -webkit-text-stroke-color: black;
+    color: red;
+    margin-bottom: -5px;
+    font-family: 'Poppins', sans-serif;
 }
 .logins{
     width: 100%;
