@@ -20,7 +20,7 @@ session_start();
 
 <body>
     <div class="login-container">
-        <h1 class="title">Personal Album Catalogue</h1>
+        <h1 class="title">Personal Catalogue System</h1>
         <div class="logins">
             <div class="login-side">
                 <p>Login</p>

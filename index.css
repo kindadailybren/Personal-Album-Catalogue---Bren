@@ -54,6 +54,9 @@ input{
     height: 17px;
     border-radius: 5px;
     padding: 3px;
+    cursor: pointer;
+} button {
+    cursor: pointer;
 }
 p{
     text-align: center;
