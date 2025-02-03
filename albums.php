@@ -17,6 +17,9 @@ session_start();
 </head>
 
 <body>
+  <nav>
+    <a href="index.php"><h2>Back to Login Page</h2></a>
+  </nav>
   <h1><?php echo $_SESSION["username-store"] ?>'S ALBUM CATALOGUE</h1>
   <form action="albums.php" method="post" enctype="multipart/form-data"> <!-- Set Table as a Form with method POST-->
     <table class="table-bordered">

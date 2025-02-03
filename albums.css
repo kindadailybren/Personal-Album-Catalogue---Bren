@@ -5,6 +5,7 @@ body {
     justify-items: center;
     flex-direction: column;
     background-image: url("media/pyt3d7vxk1aa1.png");
+    margin: 0;
 }
 
 h1 {
@@ -24,6 +25,22 @@ td:nth-child(2),
 td:nth-child(3),
 td:nth-child(4) {
     width: 30%; /* Bigger width for the second and third columns */
+}
+
+/* NAV BAR */
+nav{
+    width: 100vw;
+    background-color: rgb(53, 53, 123);
+    display: flex;
+    justify-content: end;
+    box-shadow: 0px 0px 10px;
+} h2 {
+    font-family: 'Poppins';
+    color: white;
+} a {
+    text-decoration: none;
+    margin-right: 20px;
+    
 }
 
 table {
@@ -122,6 +139,7 @@ button:active{
     background-color: rgb(83, 83, 160);
     display: flex;
     transition: 0.55s scale;
+    box-shadow: 0px 0px 10px;
 }
 .album-containerz:hover{
     scale: 1.01;

@@ -93,7 +93,9 @@ session_start();
                             $stmt = mysqli_prepare($conn, $sql_query);
                             mysqli_stmt_bind_param($stmt, "ss", $_SESSION["username-store"], $hashed_pass);
 
-                            if (mysqli_stmt_execute($stmt)) {
+                            if(empty($password) || empty($_SESSION["username-store"])){
+                                echo "Please Enter a Password/Username";
+                            } else if (mysqli_stmt_execute($stmt)) {
                                 echo "Registration successful!";
                                 header("Location: albums.php"); // Redirect after registration
                                 exit();
