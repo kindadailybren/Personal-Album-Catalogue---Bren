@@ -46,6 +46,7 @@ label{
     border: 2px solid rgb(31, 31, 68);
     border-radius: 5px;
     margin: 6px;
+    margin-top: 15px;
 }
 input{
     font-family: 'Poppins', sans-serif;
@@ -54,7 +55,6 @@ input{
     height: 17px;
     border-radius: 5px;
     padding: 3px;
-    cursor: pointer;
 } button {
     cursor: pointer;
 }
@@ -89,6 +89,8 @@ p{
     border-radius: 10px;    
     border: 2px solid rgb(50, 50, 119);
     padding: 50px;
+    width: 230px;
+    height: 200px;
     background-color: rgb(49, 49, 101);
 }
 .acknowledge{
@@ -96,7 +98,7 @@ p{
     -webkit-text-stroke-width: 0px;
     -webkit-text-stroke-color: black;
     color: white;
-    margin-top: 8px;
+    margin-top: 20px;
 }
 a{
     text-decoration: none;
